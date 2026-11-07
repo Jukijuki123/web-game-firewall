@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberGuard: Game Edukasi Firewall - Kurikulum SIJA</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cyberDark: '#0b0f19',
+            cyberCard: '#111827',
+            neonCyan: '#06b6d4',
+            neonGreen: '#10b981',
+            neonRed: '#ef4444',
+            neonAmber: '#f59e0b',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen cyber-grid-bg flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
+
+  <!-- ================= HEADER UTAMA ================= -->
+  <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Logo & Branding -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="app.switchTab('materi')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/20 text-white font-black text-xl">
+          🛡️
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="font-extrabold text-base md:text-lg tracking-wider text-slate-100">CYBERGUARD</h1>
+            <span class="text-[10px] font-mono bg-cyan-950 text-cyan-300 border border-cyan-700/60 px-1.5 py-0.5 rounded font-bold">SIJA SMK</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Media Belajar & Game Edukasi Sistem Keamanan Jaringan (Firewall)</p>
+        </div>
+      </div>
+
+      <!-- Quick Action Controls -->
+      <div class="flex items-center space-x-2">
+        <button id="btn-toggle-audio" class="px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-xs text-slate-300 transition-colors flex items-center gap-1.5">
+          🔊 <span class="hidden sm:inline">Mute</span>
+        </button>
+        <button onclick="document.getElementById('help-modal').classList.remove('hidden')" class="px-3 py-1.5 rounded-lg border border-cyan-800/60 bg-cyan-950/40 hover:bg-cyan-900/40 text-xs text-cyan-300 transition-colors flex items-center gap-1.5 font-semibold">
+          💡 <span>Panduan Belajar</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Navigasi Menu Tab Bar -->
+    <div class="border-t border-slate-800/60 bg-slate-900/60">
+      <div class="max-w-7xl mx-auto px-4 flex items-center space-x-1 sm:space-x-2 overflow-x-auto py-2">
+        <button onclick="app.switchTab('materi')" data-tab="materi" class="nav-tab-btn px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 glow-cyan whitespace-nowrap">
+          📖 1. Materi & Teori
+        </button>
+        <button onclick="app.switchTab('kuis')" data-tab="kuis" class="nav-tab-btn px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">
+          ❓ 2. Kuis Pemanasan
+        </button>
+        <button onclick="app.switchTab('simulator')" data-tab="simulator" class="nav-tab-btn px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">
+          🔬 3. Lab Simulator Paket
+        </button>
+        <button onclick="app.switchTab('game-l1')" data-tab="game-l1" class="nav-tab-btn px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">
+          🎮 4. Level 1 (Bouncer)
+        </button>
+        <button onclick="app.switchTab('game-l2')" data-tab="game-l2" class="nav-tab-btn px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">
+          🛠️ 5. Level 2 (Rules)
+        </button>
+        <button onclick="app.switchTab('game-l3')" data-tab="game-l3" class="nav-tab-btn px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">
+          ⚡ 6. Level 3 (Survival)
+        </button>
+        <button onclick="app.switchTab('certificate')" data-tab="certificate" class="nav-tab-btn px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">
+          📜 7. Sertifikat Digital
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= KONTEN UTAMA ================= -->
+  <main class="max-w-7xl mx-auto px-4 py-6 w-full flex-1">
+
+    <!-- ---------------- TAB 1: MATERI & TEORI ---------------- -->
+    <section id="tab-materi" class="tab-content space-y-6">
+      
+      <!-- Hero Banner Ringkas -->
+      <div class="bg-gradient-to-r from-cyan-950/60 via-slate-900 to-indigo-950/60 border border-cyan-800/40 rounded-2xl p-6 relative overflow-hidden">
+        <div class="max-w-3xl space-y-2 relative z-10">
+          <span class="text-xs font-mono font-bold text-cyan-400 bg-cyan-950 border border-cyan-800 px-2.5 py-1 rounded-full inline-block">
+            MODUL PRAKTIKUM SIJA
+          </span>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-white">
+            Konsep Firewall & Keamanan Jaringan
+          </h2>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Pahami bagaimana gerbang firewall memfilter setiap paket data yang keluar-masuk server. Pelajari anatomi paket, port layanan standar, hingga prinsip eksekusi Top-Down Rule sebelum mencoba simulasi dan arena tantangan!
+          </p>
+        </div>
+      </div>
+
+      <!-- Kartu-Kartu Pembelajaran -->
+      <div id="lessons-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Rendered by js/app.js -->
+      </div>
+
+      <!-- Kamus & Cheatsheet Port Interaktif -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
+          <div>
+            <h3 class="font-bold text-base text-cyan-300 flex items-center gap-2">
+              <span>📚</span> Kamus Port & Layanan Jaringan Standar
+            </h3>
+            <p class="text-xs text-slate-400">Daftar port penting yang sering diuji pada sertifikasi dan kurikulum SIJA</p>
+          </div>
+          <div class="w-full sm:w-64">
+            <input type="text" id="port-search-input" placeholder="Cari port (misal: 443, SSH, Telnet)..." 
+              class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono">
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-800 text-[11px] text-slate-400 font-mono uppercase bg-slate-950/50">
+                <th class="py-2 px-3">Port</th>
+                <th class="py-2 px-3">Protokol</th>
+                <th class="py-2 px-3">Layanan</th>
+                <th class="py-2 px-3">Status Keamanan</th>
+                <th class="py-2 px-3">Keterangan</th>
+                <th class="py-2 px-3">Rekomendasi Firewall</th>
+              </tr>
+            </thead>
+            <tbody id="port-dict-body" class="divide-y divide-slate-800/60">
+              <!-- Rendered by js/app.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tombol Lanjut ke Kuis -->
+      <div class="text-center pt-2">
+        <button onclick="app.switchTab('kuis')" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-sm shadow-lg shadow-cyan-500/20 transition-all inline-flex items-center gap-2">
+          <span>Siap Uji Pemahaman? Buka Kuis Pemanasan</span> <span>➔</span>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ---------------- TAB 2: KUIS PEMANASAN ---------------- -->
+    <section id="tab-kuis" class="tab-content hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <div class="max-w-2xl mb-6">
+          <span class="text-xs font-mono text-cyan-400 font-bold uppercase">Evaluasi Mandiri</span>
+          <h2 class="text-xl md:text-2xl font-bold text-slate-100 mt-1">Kuis Cepat Pemahaman Firewall</h2>
+          <p class="text-xs text-slate-400 mt-1">Pilih jawaban yang paling tepat. Sistem akan langsung memberikan pembahasan edukatif.</p>
+        </div>
+
+        <div id="quiz-questions-container" class="space-y-4">
+          <!-- Rendered by js/app.js -->
+        </div>
+
+        <div class="mt-8 pt-4 border-t border-slate-800 text-center">
+          <button onclick="app.switchTab('simulator')" class="px-6 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs font-mono transition-all">
+            Lanjut ke Lab Simulator Paket ➔
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------------- TAB 3: LAB SIMULATOR PAKET ---------------- -->
+    <section id="tab-simulator" class="tab-content hidden space-y-6">
+      
+      <!-- Topologi Jaringan & Animasi Aliran Paket -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-6">
+          <div>
+            <h2 class="text-lg font-bold text-cyan-300 font-mono">SIMULATOR TOP-DOWN PACKET FILTERING</h2>
+            <p class="text-xs text-slate-400">Kirim paket data dan amati proses pencocokan rule dari atas ke bawah!</p>
+          </div>
+          <button onclick="simulator.resetRules()" class="text-xs text-slate-400 hover:text-cyan-400 underline font-mono">
+            Reset Rule Default
+          </button>
+        </div>
+
+        <!-- Jalur Visual Topologi -->
+        <div class="relative py-8 px-4 bg-black/50 rounded-xl border border-slate-800/80 mb-6 overflow-hidden">
+          
+          <!-- Garis Kabel Koneksi -->
+          <div class="absolute top-1/2 left-16 right-16 h-1 bg-slate-800 -translate-y-1/2 z-0"></div>
+
+          <div class="relative z-10 flex items-center justify-between max-w-4xl mx-auto">
+            
+            <!-- Node 1: Pengirim / Client Internet -->
+            <div class="flex flex-col items-center text-center space-y-2">
+              <div class="w-16 h-16 rounded-2xl bg-slate-800 border-2 border-slate-600 flex items-center justify-center text-2xl shadow-lg">
+                🌐
+              </div>
+              <span class="text-xs font-mono font-bold text-slate-300">Client / Internet</span>
+              <span class="text-[10px] font-mono text-cyan-400" id="sim-display-src">182.253.10.12</span>
+            </div>
+
+            <!-- Visual Animasi Paket Berjalan -->
+            <div class="relative w-48 h-12 flex items-center justify-center">
+              <div id="sim-visual-packet" class="hidden"></div>
+            </div>
+
+            <!-- Node 2: Gerbang Firewall Gateway -->
+            <div class="flex flex-col items-center text-center space-y-2">
+              <div id="sim-firewall-shield" class="w-16 h-16 rounded-2xl bg-cyan-950/80 border-2 border-cyan-500 flex items-center justify-center text-2xl shadow-lg shadow-cyan-500/20 shield-beam">
+                🛡️
+              </div>
+              <span class="text-xs font-mono font-bold text-cyan-300">Firewall Gateway</span>
+              <span class="text-[10px] font-mono text-slate-400">Filter Engine</span>
+            </div>
+
+            <!-- Jalur ke Server -->
+            <div class="w-24"></div>
+
+            <!-- Node 3: Server Lokal Internal -->
+            <div class="flex flex-col items-center text-center space-y-2">
+              <div class="w-16 h-16 rounded-2xl bg-indigo-950/80 border-2 border-indigo-500 flex items-center justify-center text-2xl shadow-lg shadow-indigo-500/20">
+                🖥️
+              </div>
+              <span class="text-xs font-mono font-bold text-indigo-300">Server SIJA</span>
+              <span class="text-[10px] font-mono text-slate-400">192.168.1.100</span>
+            </div>
+
+          </div>
+
+          <!-- Banner Hasil Keputusan Firewall -->
+          <div id="sim-verdict-banner" class="hidden mt-6 max-w-xl mx-auto"></div>
+        </div>
+
+        <!-- Kontrol Generator Paket & Tabel Aturan Firewall -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Generator Paket (Form Kiri) -->
+          <div class="lg:col-span-4 bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+            <h4 class="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider">Racik Paket Data:</h4>
+            
+            <div>
+              <label class="block text-[11px] text-slate-400 font-mono mb-1">Source IP (Pengirim):</label>
+              <select id="sim-pkt-src" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-200 font-mono">
+                <option value="182.253.10.12">182.253.10.12 (Siswa / Publik)</option>
+                <option value="192.168.1.50">192.168.1.50 (Admin Jaringan Khusus)</option>
+                <option value="198.51.100.99">198.51.100.99 (Hacker / Botnet Luar)</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[11px] text-slate-400 font-mono mb-1">Protokol:</label>
+                <select id="sim-pkt-proto" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-200 font-mono">
+                  <option value="TCP">TCP</option>
+                  <option value="UDP">UDP</option>
+                  <option value="ICMP">ICMP (Ping)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-400 font-mono mb-1">Port Tujuan:</label>
+                <select id="sim-pkt-port" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-200 font-mono">
+                  <option value="443">443 (HTTPS)</option>
+                  <option value="80">80 (HTTP)</option>
+                  <option value="22">22 (SSH)</option>
+                  <option value="23">23 (Telnet - Bahaya)</option>
+                  <option value="3306">3306 (MySQL)</option>
+                  <option value="53">53 (DNS)</option>
+                </select>
+              </div>
+            </div>
+
+            <button id="sim-send-btn" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-xs font-mono shadow-lg transition-all flex items-center justify-center gap-2">
+              <span>🚀</span> <span>Kirim & Evaluasi Paket</span>
+            </button>
+
+            <!-- Console Log Output -->
+            <div class="pt-2">
+              <span class="text-[10px] font-mono text-slate-500 block mb-1">DIAGNOSTIC CONSOLE LOG:</span>
+              <div id="sim-log-box" class="h-36 overflow-y-auto bg-black p-2 rounded-lg border border-slate-900 space-y-1 font-mono text-[11px]">
+                <div class="text-slate-600 italic">Siap mengirim paket...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabel Aturan Firewall (Kanan) -->
+          <div class="lg:col-span-8 bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider">Tabel Aturan Firewall Aktif</h4>
+                <p class="text-[11px] text-slate-400">Aturan diuji secara berurutan dari atas (#1) ke bawah. Gunakan tombol ▲/▼ untuk mengubah prioritas!</p>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-800 text-[10px] text-slate-400 font-mono uppercase bg-slate-900/60">
+                    <th class="py-1.5 px-3">Urutan</th>
+                    <th class="py-1.5 px-3">Aksi</th>
+                    <th class="py-1.5 px-3">Proto</th>
+                    <th class="py-1.5 px-3">Port</th>
+                    <th class="py-1.5 px-3">Source IP</th>
+                    <th class="py-1.5 px-3">Keterangan</th>
+                    <th class="py-1.5 px-3 text-right">Kelola</th>
+                  </tr>
+                </thead>
+                <tbody id="sim-rules-body">
+                  <!-- Rendered by js/simulator.js -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Tambah Rule Baru Form Mini -->
+            <div class="pt-3 border-t border-slate-800">
+              <span class="text-[11px] font-mono text-slate-400 block mb-2 font-bold">+ Sisipkan Aturan Baru:</span>
+              <div class="grid grid-cols-2 sm:grid-cols-6 gap-2 text-xs font-mono">
+                <div>
+                  <select id="sim-new-action" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-slate-200">
+                    <option value="ACCEPT">ACCEPT</option>
+                    <option value="DROP">DROP</option>
+                    <option value="REJECT">REJECT</option>
+                  </select>
+                </div>
+                <div>
+                  <select id="sim-new-proto" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-slate-200">
+                    <option value="TCP">TCP</option>
+                    <option value="UDP">UDP</option>
+                    <option value="Any">Any</option>
+                  </select>
+                </div>
+                <div>
+                  <input type="text" id="sim-new-port" placeholder="Port (mis. 80)" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-slate-200">
+                </div>
+                <div>
+                  <input type="text" id="sim-new-src" placeholder="Src IP (mis. Any)" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-slate-200">
+                </div>
+                <div>
+                  <input type="text" id="sim-new-comment" placeholder="Komentar" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-slate-200">
+                </div>
+                <div>
+                  <button id="sim-add-rule-btn" class="w-full bg-cyan-700 hover:bg-cyan-600 text-white rounded px-2 py-1 font-bold">
+                    + Tambah
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ---------------- TAB 4: LEVEL 1 (PACKET BOUNCER) ---------------- -->
+    <section id="game-l1" class="tab-content hidden space-y-6">
+      
+      <!-- Header Game Level 1 -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="text-xs px-2 py-0.5 rounded font-mono font-bold bg-cyan-950 text-cyan-400 border border-cyan-800">LEVEL 1</span>
+            <h2 class="text-lg font-bold text-slate-100">Packet Bouncer (Satpam Gerbang Jaringan)</h2>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">
+            Inspeksi paket yang datang! Izinkan yang aman (<span class="text-emerald-400 font-semibold">ACCEPT</span>) dan buang paket berbahaya (<span class="text-rose-400 font-semibold">DROP / REJECT</span>).
+          </p>
+        </div>
+
+        <!-- Dashboard Indikator Live -->
+        <div class="flex items-center space-x-4 bg-slate-950 px-4 py-2 rounded-xl border border-slate-800 font-mono text-xs">
+          <div>
+            <span class="text-slate-500 block text-[10px]">SKOR:</span>
+            <span id="l1-score" class="text-cyan-400 font-bold text-sm">0</span>
+          </div>
+          <div class="border-l border-slate-800 pl-4">
+            <span class="text-slate-500 block text-[10px]">COMBO:</span>
+            <span id="l1-streak" class="text-emerald-400 font-bold text-sm">x0</span>
+          </div>
+          <div class="border-l border-slate-800 pl-4">
+            <span class="text-slate-500 block text-[10px]">NYAWA:</span>
+            <span id="l1-lives" class="text-rose-400 font-bold text-sm">❤️❤️❤️</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bar Progress Paket -->
+      <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+        <div id="l1-progress" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-2 w-0 transition-all duration-300"></div>
+      </div>
+
+      <!-- Area Kartu Paket yang Sedang Diinspeksi -->
+      <div class="max-w-2xl mx-auto">
+        <div id="l1-packet-card">
+          <!-- Rendered by js/game.js -->
+        </div>
+
+        <!-- Kotak Feedback Penjelasan Benar / Salah -->
+        <div id="l1-feedback-box" class="hidden"></div>
+
+        <!-- Tombol Aksi Bouncer -->
+        <div class="grid grid-cols-3 gap-3 mt-6">
+          <button onclick="gameEngine.handleL1Action('ACCEPT')" class="py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-extrabold text-sm md:text-base font-mono shadow-lg shadow-emerald-600/20 transition-all flex flex-col items-center justify-center">
+            <span>✅ ACCEPT</span>
+            <span class="text-[10px] font-normal opacity-80">Izinkan Masuk</span>
+          </button>
+
+          <button onclick="gameEngine.handleL1Action('DROP')" class="py-4 rounded-xl bg-rose-600 hover:bg-rose-500 active:scale-95 text-white font-extrabold text-sm md:text-base font-mono shadow-lg shadow-rose-600/20 transition-all flex flex-col items-center justify-center">
+            <span>🛡️ DROP</span>
+            <span class="text-[10px] font-normal opacity-80">Buang Diam-diam</span>
+          </button>
+
+          <button onclick="gameEngine.handleL1Action('REJECT')" class="py-4 rounded-xl bg-amber-600 hover:bg-amber-500 active:scale-95 text-white font-extrabold text-sm md:text-base font-mono shadow-lg shadow-amber-600/20 transition-all flex flex-col items-center justify-center">
+            <span>🚫 REJECT</span>
+            <span class="text-[10px] font-normal opacity-80">Tolak + Notifikasi</span>
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ---------------- TAB 5: LEVEL 2 (RULE ARCHITECT) ---------------- -->
+    <section id="game-l2" class="tab-content hidden space-y-6">
+      
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs px-2 py-0.5 rounded font-mono font-bold bg-indigo-950 text-indigo-400 border border-indigo-800">LEVEL 2</span>
+          <h2 class="text-lg font-bold text-slate-100">Rule Architect: Penata Aturan Firewall</h2>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+          <h3 id="l2-scenario-title" class="font-bold text-cyan-300 text-sm font-mono">Memuat Skenario...</h3>
+          <p id="l2-scenario-desc" class="text-xs text-slate-300 leading-relaxed"></p>
+          <div class="text-[11px] font-mono text-slate-400">
+            Target Server: <span id="l2-target-server" class="text-indigo-400 font-bold"></span>
+          </div>
+        </div>
+
+        <!-- Tabel Aturan yang Dapat Diurutkan -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono text-slate-400 font-bold">SUSUNAN ATURAN (Gunakan ▲/▼ untuk Mengatur Prioritas Eksekusi):</span>
+          </div>
+
+          <div class="overflow-x-auto bg-slate-950 rounded-xl border border-slate-800">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-slate-800 text-[10px] text-slate-400 font-mono uppercase bg-slate-900">
+                  <th class="py-2 px-3">No</th>
+                  <th class="py-2 px-3">Tindakan</th>
+                  <th class="py-2 px-3">Protokol</th>
+                  <th class="py-2 px-3">Port</th>
+                  <th class="py-2 px-3">Source IP</th>
+                  <th class="py-2 px-3">Keterangan</th>
+                  <th class="py-2 px-3 text-right">Prioritas</th>
+                </tr>
+              </thead>
+              <tbody id="l2-rules-body">
+                <!-- Rendered by js/game.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tombol Deploy & Test -->
+        <div class="pt-2 text-center">
+          <button id="l2-test-btn" onclick="gameEngine.runL2WaveTest()" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-extrabold text-xs md:text-sm font-mono shadow-lg shadow-indigo-500/20 transition-all">
+            🚀 Deploy & Uji Gelombang Serangan
+          </button>
+        </div>
+
+        <!-- Laporan Hasil Uji Gelombang Paket -->
+        <div id="l2-wave-report" class="hidden p-4 bg-black/60 rounded-xl border border-slate-800 space-y-2">
+          <h4 class="text-xs font-mono font-bold text-cyan-400 uppercase">Hasil Evaluasi Paket:</h4>
+          <ul id="l2-report-list" class="space-y-1.5"></ul>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ---------------- TAB 6: LEVEL 3 (SURVIVAL RUSH) ---------------- -->
+    <section id="game-l3" class="tab-content hidden space-y-6">
+      
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs px-2 py-0.5 rounded font-mono font-bold bg-rose-950 text-rose-400 border border-rose-800">LEVEL 3</span>
+              <h2 class="text-lg font-bold text-slate-100">Cyber Defense Rush (Incident Response)</h2>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5">Pertahankan server sekolah dari serangan siber bertubi-tubi secara real-time!</p>
+          </div>
+
+          <!-- Status Bar Waktu & Skor -->
+          <div class="flex items-center space-x-4 bg-slate-950 px-4 py-2 rounded-xl border border-slate-800 font-mono text-xs">
+            <div>
+              <span class="text-slate-500 text-[10px] block">WAKTU:</span>
+              <span id="l3-time" class="text-amber-400 font-bold text-sm">45s</span>
+            </div>
+            <div class="border-l border-slate-800 pl-4">
+              <span class="text-slate-500 text-[10px] block">SKOR:</span>
+              <span id="l3-score" class="text-cyan-400 font-bold text-sm">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bar Kesehatan Server -->
+        <div class="space-y-1">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-slate-300 font-bold">KESEHATAN SERVER KAMPUS (SERVER HEALTH):</span>
+            <span id="l3-health" class="text-emerald-400 font-bold">100%</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden border border-slate-800">
+            <div id="l3-health-bar" class="h-3 rounded-full bg-emerald-500 w-full transition-all duration-300"></div>
+          </div>
+        </div>
+
+        <!-- Kontrol Tombol Pertahanan Darurat -->
+        <div class="space-y-2">
+          <span class="text-xs font-mono text-cyan-400 font-bold uppercase">Tindakan Pertahanan Cepat (Klik untuk Mengaktifkan):</span>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            
+            <button id="l3-btn-insecure" onclick="gameEngine.toggleL3Defense('blockInsecure')" class="p-3 rounded-lg border text-left text-xs bg-slate-900 border-slate-700 text-slate-400 font-mono transition-all">
+              <span class="font-bold text-slate-200 block mb-1">🛡️ AUTO-DROP INSECURE</span>
+              <span class="text-[11px] block">Blokir Telnet (23) & FTP (21)</span>
+            </button>
+
+            <button id="l3-btn-ssh" onclick="gameEngine.toggleL3Defense('whitelistSsh')" class="p-3 rounded-lg border text-left text-xs bg-slate-900 border-slate-700 text-slate-400 font-mono transition-all">
+              <span class="font-bold text-slate-200 block mb-1">🔒 SSH WHITELIST ONLY</span>
+              <span class="text-[11px] block">Batasi port SSH (22) hanya untuk IP Guru/Admin</span>
+            </button>
+
+            <button id="l3-btn-ddos" onclick="gameEngine.toggleL3Defense('rateLimitDdos')" class="p-3 rounded-lg border text-left text-xs bg-slate-900 border-slate-700 text-slate-400 font-mono transition-all">
+              <span class="font-bold text-slate-200 block mb-1">⚡ RATE LIMIT ICMP</span>
+              <span class="text-[11px] block">Cegah ping flood & overload DDoS</span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Live Incident Feed Stream -->
+        <div class="space-y-2 pt-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono text-slate-400 font-bold">LOG LIVE SERANGAN (REAL-TIME INCIDENT FEED):</span>
+            <span id="l3-live-log" class="text-[11px] font-mono text-cyan-300">Sistem siap</span>
+          </div>
+          <ul id="l3-incident-feed" class="space-y-1.5 h-44 overflow-y-auto bg-black/60 p-3 rounded-xl border border-slate-800">
+            <li class="text-xs font-mono text-slate-500 italic">Menunggu traffic lalu lintas jaringan...</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ---------------- TAB 7: SERTIFIKAT DIGITAL ---------------- -->
+    <section id="tab-certificate" class="tab-content hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-6">
+        
+        <div class="max-w-2xl">
+          <span class="text-xs font-mono text-emerald-400 font-bold uppercase">Pencapaian Prestasi SIJA</span>
+          <h2 class="text-xl md:text-2xl font-bold text-slate-100 mt-1">Sertifikat Digital Kelulusan</h2>
+          <p class="text-xs text-slate-400 mt-1">
+            Lengkapi nama dan nama sekolah Anda untuk mencetak atau mengunduh sertifikat resmi kompetensi Sistem Keamanan Jaringan.
+          </p>
+        </div>
+
+        <!-- Form Input Identitas Siswa -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-950 p-4 rounded-xl border border-slate-800">
+          <div>
+            <label class="block text-xs font-mono text-slate-400 mb-1">Nama Lengkap Siswa:</label>
+            <input type="text" id="cert-student-name" placeholder="Misal: Ahmad Zaki" 
+              class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-100 font-semibold focus:outline-none focus:border-cyan-500">
+          </div>
+          <div>
+            <label class="block text-xs font-mono text-slate-400 mb-1">Asal Sekolah / Jurusan:</label>
+            <input type="text" id="cert-school-name" placeholder="Misal: SMK Negeri 1 SIJA" 
+              class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-100 font-semibold focus:outline-none focus:border-cyan-500">
+          </div>
+          <div class="md:col-span-2">
+            <button onclick="app.generateCertificate()" class="px-5 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-mono text-xs font-bold transition-all">
+              Perbarui Data Sertifikat
+            </button>
+          </div>
+        </div>
+
+        <!-- Render Canvas Sertifikat -->
+        <div class="overflow-x-auto p-4 bg-black/50 rounded-xl border border-slate-800 flex justify-center">
+          <canvas id="cert-canvas" width="850" height="500" class="rounded-lg shadow-2xl max-w-full h-auto border border-cyan-800/40"></canvas>
+        </div>
+
+        <!-- Tombol Aksi Download / Print -->
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <button onclick="app.downloadCertificate()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white font-bold text-xs font-mono shadow-lg shadow-emerald-500/20 transition-all flex items-center gap-2">
+            <span>📥</span> <span>Unduh Sertifikat (PNG)</span>
+          </button>
+          <button onclick="window.print()" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs font-mono transition-all flex items-center gap-2">
+            <span>🖨️</span> <span>Cetak Dokumen</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= MODAL LEVEL COMPLETE ================= -->
+  <div id="level-complete-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-cyan-500/50 rounded-2xl max-w-md w-full p-6 text-center space-y-4 glow-cyan">
+      <div class="w-16 h-16 rounded-2xl bg-cyan-500/20 border border-cyan-500 mx-auto flex items-center justify-center text-3xl">
+        🎉
+      </div>
+      <h3 id="modal-title" class="text-xl font-extrabold text-cyan-300 font-mono">Level Selesai!</h3>
+      <div id="modal-score" class="text-2xl font-black text-emerald-400 font-mono">0 Poin</div>
+      <p id="modal-summary" class="text-xs text-slate-300 leading-relaxed"></p>
+      
+      <div class="pt-3 flex flex-col gap-2">
+        <button id="modal-next-btn" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-xs font-mono shadow-lg transition-all">
+          Lanjut ke Tantangan Berikutnya
+        </button>
+        <button id="modal-close-btn" class="text-xs text-slate-500 hover:text-slate-300 py-1">
+          Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL PANDUAN CARA BERMAIN ================= -->
+  <div id="help-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="font-bold text-base text-cyan-300 font-mono flex items-center gap-2">
+          <span>💡</span> Panduan Penggunaan CyberGuard SIJA
+        </h3>
+        <button onclick="document.getElementById('help-modal').classList.add('hidden')" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div class="text-xs text-slate-300 space-y-3 leading-relaxed max-h-96 overflow-y-auto">
+        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800">
+          <strong class="text-cyan-400 block mb-1">1. Alur Pembelajaran:</strong>
+          Pelajari modul di tab <strong>Materi & Teori</strong>, uji dengan <strong>Kuis Pemanasan</strong>, lalu amati jalannya paket di <strong>Lab Simulator</strong>.
+        </div>
+        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800">
+          <strong class="text-emerald-400 block mb-1">2. Level 1 (Packet Bouncer):</strong>
+          Amati Port dan Sumber paket. Izinkan (ACCEPT) port aman seperti HTTPS (443) atau DNS (53), dan buang (DROP) port rentan seperti Telnet (23) atau MySQL (3306) dari luar.
+        </div>
+        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800">
+          <strong class="text-indigo-400 block mb-1">3. Level 2 (Rule Architect):</strong>
+          Ingat prinsip <em>Top-Down Execution</em>! Geser aturan paling spesifik ke atas sebelum default policy DROP ALL di bawah.
+        </div>
+        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800">
+          <strong class="text-rose-400 block mb-1">4. Level 3 (Survival Rush):</strong>
+          Klik tombol pertahanan darurat secara sigap saat serangan botnet, DDoS, atau brute force terdeteksi!
+        </div>
+      </div>
+
+      <button onclick="document.getElementById('help-modal').classList.add('hidden')" class="w-full py-2.5 rounded-lg bg-cyan-700 hover:bg-cyan-600 text-white font-mono text-xs font-bold transition-all">
+        Mengerti, Siap Belajar!
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-slate-800/80 bg-slate-950/80 py-4 text-center text-xs text-slate-500 font-mono">
+    <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-2">
+      <div>CyberGuard SIJA &copy; 2026 - Modul Edukasi Sistem Keamanan Jaringan</div>
+      <div class="text-[11px] text-slate-600">SMK Sistem Informatika, Jaringan, dan Aplikasi</div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT ENGINE -->
+  <script src="js/sound.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/simulator.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
+

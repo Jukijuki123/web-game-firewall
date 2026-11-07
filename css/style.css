@@ -1,0 +1,161 @@
+/* Cyberpunk & SOC (Security Operations Center) Theme Styles */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --cyber-bg: #0b0f19;
+  --cyber-card: #111827;
+  --cyber-border: #1f293d;
+  --neon-blue: #00d2ff;
+  --neon-cyan: #06b6d4;
+  --neon-green: #10b981;
+  --neon-red: #ef4444;
+  --neon-amber: #f59e0b;
+  --neon-purple: #8b5cf6;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--cyber-bg);
+  color: #e2e8f0;
+  overflow-x: hidden;
+}
+
+.font-mono-cyber {
+  font-family: 'Fira Code', monospace;
+}
+
+/* Custom Grid Background */
+.cyber-grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(0, 210, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* Glowing text & borders */
+.glow-cyan {
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.35);
+}
+
+.glow-green {
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+}
+
+.glow-red {
+  box-shadow: 0 0 18px rgba(239, 68, 68, 0.45);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 10px rgba(6, 182, 212, 0.6);
+}
+
+.text-glow-green {
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+}
+
+.text-glow-red {
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+}
+
+/* Radar Scan line effect */
+.scanline {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanline::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 210, 255, 0.06) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  z-index: 10;
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+}
+
+/* Packet Conveyor Animation */
+.packet-node {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.packet-node:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+@keyframes pulseBorder {
+  0%, 100% { border-color: rgba(6, 182, 212, 0.4); }
+  50% { border-color: rgba(0, 210, 255, 0.9); }
+}
+
+.pulse-border {
+  animation: pulseBorder 2s infinite ease-in-out;
+}
+
+/* Shield barrier effect */
+@keyframes shieldWave {
+  0% { transform: scaleY(0.95); opacity: 0.7; }
+  50% { transform: scaleY(1.05); opacity: 1; }
+  100% { transform: scaleY(0.95); opacity: 0.7; }
+}
+
+.shield-beam {
+  animation: shieldWave 1.5s infinite ease-in-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0f19;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00d2ff;
+}
+
+/* Floating animation */
+@keyframes floatAnim {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: floatAnim 3s ease-in-out infinite;
+}
+
+/* Level Indicator Badge */
+.level-badge {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+  border: 1px solid rgba(6, 182, 212, 0.4);
+}
+
+/* Laser Drop Animation */
+@keyframes laserZap {
+  0% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.15); filter: brightness(2) drop-shadow(0 0 20px #ef4444); }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+.laser-zap-out {
+  animation: laserZap 0.4s forwards ease-out;
+}
+
+/* Pass Green Animation */
+@keyframes passThrough {
+  0% { transform: translateX(0); opacity: 1; }
+  100% { transform: translateX(200px); opacity: 0; filter: drop-shadow(0 0 20px #10b981); }
+}
+
+.pass-through-right {
+  animation: passThrough 0.4s forwards ease-in;
+}
+
