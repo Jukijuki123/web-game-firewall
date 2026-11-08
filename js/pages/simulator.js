@@ -1,5 +1,5 @@
 /**
- * CyberGuard - Laboratorium Simulasi Paket Data & Evaluasi Aturan Firewall
+ * Simulator Page - Laboratorium Simulasi Paket Data & Evaluasi Aturan Firewall
  * Memvisualisasikan prinsip Top-Down Rule Matching secara interaktif.
  */
 
@@ -13,6 +13,43 @@ class PacketSimulator {
       { id: 5, action: "DROP", proto: "Any", port: "Any", src: "Any", comment: "Default Policy (Drop All)" }
     ];
     this.isSimulating = false;
+  }
+
+  init() {
+    this.renderRules();
+    this.setupEventListeners();
+  }
+
+  setupEventListeners() {
+    // Tombol Kirim Paket
+    const simSendBtn = document.getElementById('sim-send-btn');
+    if (simSendBtn) {
+      simSendBtn.addEventListener('click', () => {
+        const srcIp = document.getElementById('sim-pkt-src').value || '182.253.10.12';
+        const proto = document.getElementById('sim-pkt-proto').value;
+        const destPort = document.getElementById('sim-pkt-port').value || 443;
+
+        this.sendPacket({
+          srcIp,
+          proto,
+          destPort
+        });
+      });
+    }
+
+    // Form Tambah Rule
+    const simAddBtn = document.getElementById('sim-add-rule-btn');
+    if (simAddBtn) {
+      simAddBtn.addEventListener('click', () => {
+        const action = document.getElementById('sim-new-action').value;
+        const proto = document.getElementById('sim-new-proto').value;
+        const port = document.getElementById('sim-new-port').value || 'Any';
+        const src = document.getElementById('sim-new-src').value || 'Any';
+        const comment = document.getElementById('sim-new-comment').value || 'Aturan Baru';
+
+        this.addRule(action, proto, port, src, comment);
+      });
+    }
   }
 
   renderRules() {
@@ -34,17 +71,22 @@ class PacketSimulator {
         actionBadge = `<span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded font-mono font-bold">REJECT</span>`;
       }
 
+      const safeProto = Utils.escapeHtml(rule.proto);
+      const safePort = Utils.escapeHtml(rule.port);
+      const safeSrc = Utils.escapeHtml(rule.src);
+      const safeComment = Utils.escapeHtml(rule.comment || '-');
+
       tr.innerHTML = `
         <td class="py-2 px-3 font-mono text-slate-400 font-bold">#${index + 1}</td>
         <td class="py-2 px-3">${actionBadge}</td>
-        <td class="py-2 px-3 font-mono text-slate-200">${rule.proto}</td>
-        <td class="py-2 px-3 font-mono text-cyan-400 font-semibold">${rule.port}</td>
-        <td class="py-2 px-3 font-mono text-slate-300">${rule.src}</td>
-        <td class="py-2 px-3 text-slate-400 text-[11px] truncate max-w-[140px]">${rule.comment || '-'}</td>
+        <td class="py-2 px-3 font-mono text-slate-200">${safeProto}</td>
+        <td class="py-2 px-3 font-mono text-cyan-400 font-semibold">${safePort}</td>
+        <td class="py-2 px-3 font-mono text-slate-300">${safeSrc}</td>
+        <td class="py-2 px-3 text-slate-400 text-[11px] truncate max-w-[140px]">${safeComment}</td>
         <td class="py-2 px-3 text-right space-x-1 whitespace-nowrap">
-          <button onclick="simulator.moveRule(${index}, -1)" ${index === 0 ? 'disabled' : ''} class="p-1 hover:text-cyan-400 disabled:opacity-20 text-slate-400" title="Geser ke Atas">▲</button>
-          <button onclick="simulator.moveRule(${index}, 1)" ${index === this.rules.length - 1 ? 'disabled' : ''} class="p-1 hover:text-cyan-400 disabled:opacity-20 text-slate-400" title="Geser ke Bawah">▼</button>
-          <button onclick="simulator.deleteRule(${rule.id})" class="p-1 hover:text-rose-400 text-slate-500" title="Hapus Rule">✕</button>
+          <button onclick="simulatorPage.moveRule(${index}, -1)" ${index === 0 ? 'disabled' : ''} class="p-1 hover:text-cyan-400 disabled:opacity-20 text-slate-400" title="Geser ke Atas">▲</button>
+          <button onclick="simulatorPage.moveRule(${index}, 1)" ${index === this.rules.length - 1 ? 'disabled' : ''} class="p-1 hover:text-cyan-400 disabled:opacity-20 text-slate-400" title="Geser ke Bawah">▼</button>
+          <button onclick="simulatorPage.deleteRule(${rule.id})" class="p-1 hover:text-rose-400 text-slate-500" title="Hapus Rule">✕</button>
         </td>
       `;
       tableBody.appendChild(tr);
@@ -77,7 +119,6 @@ class PacketSimulator {
   addRule(action, proto, port, src, comment) {
     if (this.isSimulating) return;
     const newId = Date.now();
-    // Sisipkan sebelum default rule paling bawah jika ada
     const lastRule = this.rules[this.rules.length - 1];
     if (lastRule && lastRule.port === 'Any' && lastRule.src === 'Any') {
       this.rules.splice(this.rules.length - 1, 0, {
@@ -141,12 +182,12 @@ class PacketSimulator {
     }
 
     // Langkah 1: Paket bergerak ke Firewall Gateway
-    await this.sleep(400);
+    await Utils.sleep(400);
     if (visualPacket) {
       visualPacket.style.transform = 'translateX(170px)';
     }
 
-    await this.sleep(700);
+    await Utils.sleep(700);
     this.appendLog(logBox, `🔍 [FIREWALL] Paket tiba di gerbang firewall. Mulai pemeriksaan Top-Down Rule...`);
 
     // Evaluasi aturan satu per satu
@@ -158,7 +199,7 @@ class PacketSimulator {
       const rowElem = document.getElementById(`sim-rule-row-${rule.id}`);
       if (rowElem) rowElem.classList.add('bg-cyan-950/80', 'text-cyan-200');
 
-      await this.sleep(400);
+      await Utils.sleep(400);
 
       // Cek kriteria
       const matchProto = rule.proto === 'Any' || rule.proto.toUpperCase() === packetData.proto.toUpperCase();
@@ -186,7 +227,7 @@ class PacketSimulator {
       this.appendLog(logBox, `⚠️ Tidak ada aturan yang cocok! Implisit Default: DROP`);
     }
 
-    await this.sleep(400);
+    await Utils.sleep(400);
 
     // Langkah 2: Eksekusi Keputusan
     if (matchedRule.action === 'ACCEPT') {
@@ -228,14 +269,16 @@ class PacketSimulator {
 
   showVerdict(element, title, color, desc) {
     if (!element) return;
+    const safeTitle = Utils.escapeHtml(title);
+    const safeDesc = Utils.escapeHtml(desc);
     element.className = `p-3.5 rounded-lg border flex items-center gap-3 bg-${color}-950/60 border-${color}-600/60 text-slate-200`;
     element.innerHTML = `
       <div class="w-8 h-8 rounded-full bg-${color}-500/20 text-${color}-400 flex items-center justify-center font-bold text-sm shrink-0">
         ${title === 'ACCEPTED' ? '✓' : '✕'}
       </div>
       <div>
-        <h5 class="font-bold text-${color}-400 text-sm font-mono">${title}</h5>
-        <p class="text-xs text-slate-300">${desc}</p>
+        <h5 class="font-bold text-${color}-400 text-sm font-mono">${safeTitle}</h5>
+        <p class="text-xs text-slate-300">${safeDesc}</p>
       </div>
     `;
     element.classList.remove('hidden');
@@ -249,11 +292,7 @@ class PacketSimulator {
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
   }
-
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
 }
 
-const simulator = new PacketSimulator();
-
+const simulatorPage = new PacketSimulator();
+window.simulatorPage = simulatorPage;

@@ -238,4 +238,3 @@ class SoundController {
 
 // Instance global suara
 const sounds = new SoundController();
-

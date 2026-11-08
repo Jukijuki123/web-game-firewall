@@ -1,21 +1,22 @@
-/* Cyberpunk & SOC (Security Operations Center) Theme Styles */
+/* Cyberpunk & SOC (Security Operations Center) Theme Styles - Tailwind v4 */
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
 
-:root {
-  --cyber-bg: #0b0f19;
-  --cyber-card: #111827;
-  --cyber-border: #1f293d;
-  --neon-blue: #00d2ff;
-  --neon-cyan: #06b6d4;
-  --neon-green: #10b981;
-  --neon-red: #ef4444;
-  --neon-amber: #f59e0b;
-  --neon-purple: #8b5cf6;
+@theme {
+  --color-cyber-bg: #0b0f19;
+  --color-cyber-card: #111827;
+  --color-cyber-border: #1f293d;
+  --color-neon-blue: #00d2ff;
+  --color-neon-cyan: #06b6d4;
+  --color-neon-green: #10b981;
+  --color-neon-red: #ef4444;
+  --color-neon-amber: #f59e0b;
+  --color-neon-purple: #8b5cf6;
 }
 
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: var(--cyber-bg);
+  background-color: #0b0f19;
   color: #e2e8f0;
   overflow-x: hidden;
 }
@@ -26,7 +27,7 @@ body {
 
 /* Custom Grid Background */
 .cyber-grid-bg {
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(0, 210, 255, 0.05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
   background-size: 30px 30px;
@@ -67,7 +68,10 @@ body {
   content: " ";
   display: block;
   position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 210, 255, 0.06) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
   z-index: 10;
   background-size: 100% 4px, 6px 100%;
@@ -84,8 +88,15 @@ body {
 }
 
 @keyframes pulseBorder {
-  0%, 100% { border-color: rgba(6, 182, 212, 0.4); }
-  50% { border-color: rgba(0, 210, 255, 0.9); }
+
+  0%,
+  100% {
+    border-color: rgba(6, 182, 212, 0.4);
+  }
+
+  50% {
+    border-color: rgba(0, 210, 255, 0.9);
+  }
 }
 
 .pulse-border {
@@ -94,9 +105,20 @@ body {
 
 /* Shield barrier effect */
 @keyframes shieldWave {
-  0% { transform: scaleY(0.95); opacity: 0.7; }
-  50% { transform: scaleY(1.05); opacity: 1; }
-  100% { transform: scaleY(0.95); opacity: 0.7; }
+  0% {
+    transform: scaleY(0.95);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scaleY(1.05);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0.95);
+    opacity: 0.7;
+  }
 }
 
 .shield-beam {
@@ -124,8 +146,15 @@ body {
 
 /* Floating animation */
 @keyframes floatAnim {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 .animate-float {
@@ -140,9 +169,20 @@ body {
 
 /* Laser Drop Animation */
 @keyframes laserZap {
-  0% { transform: scale(1); filter: brightness(1); }
-  50% { transform: scale(1.15); filter: brightness(2) drop-shadow(0 0 20px #ef4444); }
-  100% { transform: scale(0); opacity: 0; }
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+    filter: brightness(2) drop-shadow(0 0 20px #ef4444);
+  }
+
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
 }
 
 .laser-zap-out {
@@ -151,11 +191,34 @@ body {
 
 /* Pass Green Animation */
 @keyframes passThrough {
-  0% { transform: translateX(0); opacity: 1; }
-  100% { transform: translateX(200px); opacity: 0; filter: drop-shadow(0 0 20px #10b981); }
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(200px);
+    opacity: 0;
+    filter: drop-shadow(0 0 20px #10b981);
+  }
 }
 
 .pass-through-right {
   animation: passThrough 0.4s forwards ease-in;
 }
 
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+
+  .shield-beam,
+  .animate-float,
+  .scanline::before {
+    animation: none !important;
+  }
+
+  .pass-through-right,
+  .laser-zap-out {
+    animation: none !important;
+    transition: none !important;
+  }
+}

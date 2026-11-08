@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level 1: Packet Bouncer - CyberGuard SIJA</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen cyber-grid-bg flex flex-col">
+
+  <!-- ================= HEADER ================= -->
+  <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="Router.navigate('index.html')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/20 text-white font-black text-xl">
+          🛡️
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="font-extrabold text-base md:text-lg tracking-wider text-slate-100">CYBERGUARD</h1>
+            <span class="text-[10px] font-mono bg-cyan-950 text-cyan-300 border border-cyan-700/60 px-1.5 py-0.5 rounded font-bold">SIJA SMK</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Level 1: Packet Bouncer</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-xs text-slate-300 transition-colors flex items-center gap-1.5">
+          🏠 Kembali ke Dashboard
+        </a>
+        <button id="btn-toggle-audio" class="px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-xs text-slate-300 transition-colors flex items-center gap-1.5">
+          🔊 <span class="hidden sm:inline">Mute</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigasi Menu -->
+    <div class="border-t border-slate-800/60 bg-slate-900/60">
+      <div class="max-w-7xl mx-auto px-4 flex items-center space-x-1 overflow-x-auto py-2">
+        <a href="index.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">🏠 Dashboard</a>
+        <a href="materi.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">📖 Materi & Teori</a>
+        <a href="kuis.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">❓ Kuis Pemanasan</a>
+        <a href="simulator.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">🔬 Lab Simulator Paket</a>
+        <a href="game-l1.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 glow-cyan whitespace-nowrap">🎮 Level 1: Bouncer</a>
+        <a href="game-l2.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">🛠️ Level 2: Rules</a>
+        <a href="game-l3.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">⚡ Level 3: Survival</a>
+        <a href="sertifikat.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">📜 Sertifikat Digital</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= KONTEN UTAMA ================= -->
+  <main class="max-w-7xl mx-auto px-4 py-8 flex-1">
+
+    <!-- Header Game Level 1 -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-wrap items-center justify-between gap-4 mb-6">
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="text-xs px-2 py-0.5 rounded font-mono font-bold bg-cyan-950 text-cyan-400 border border-cyan-800">LEVEL 1</span>
+          <h2 class="text-lg font-bold text-slate-100">Packet Bouncer (Satpam Gerbang Jaringan)</h2>
+        </div>
+        <p class="text-xs text-slate-400 mt-1">
+          Inspeksi paket yang datang! Izinkan yang aman (<span class="text-emerald-400 font-semibold">ACCEPT</span>) dan buang paket berbahaya (<span class="text-rose-400 font-semibold">DROP / REJECT</span>).
+        </p>
+      </div>
+
+      <!-- Dashboard Indikator Live -->
+      <div class="flex items-center space-x-4 bg-slate-950 px-4 py-2 rounded-xl border border-slate-800 font-mono text-xs">
+        <div>
+          <span class="text-slate-500 block text-[10px]">SKOR:</span>
+          <span id="l1-score" class="text-cyan-400 font-bold text-sm">0</span>
+        </div>
+        <div class="border-l border-slate-800 pl-4">
+          <span class="text-slate-500 block text-[10px]">COMBO:</span>
+          <span id="l1-streak" class="text-emerald-400 font-bold text-sm">x0</span>
+        </div>
+        <div class="border-l border-slate-800 pl-4">
+          <span class="text-slate-500 block text-[10px]">NYAWA:</span>
+          <span id="l1-lives" class="text-rose-400 font-bold text-sm">❤️❤️❤️</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bar Progress Paket -->
+    <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800 mb-6">
+      <div id="l1-progress" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-2 w-0 transition-all duration-300"></div>
+    </div>
+
+    <!-- Area Kartu Paket yang Sedang Diinspeksi -->
+    <div class="max-w-2xl mx-auto mb-6">
+      <div id="l1-packet-card">
+        <!-- Rendered by js/pages/game-l1.js -->
+      </div>
+
+      <!-- Kotak Feedback Penjelasan Benar / Salah -->
+      <div id="l1-feedback-box" class="hidden"></div>
+
+      <!-- Tombol Aksi Bouncer -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
+        <button onclick="gameL1.handleAction('ACCEPT')" class="min-h-[48px] py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-extrabold text-sm md:text-base font-mono shadow-lg shadow-emerald-600/20 transition-all flex flex-col items-center justify-center touch-target">
+          <span>✅ ACCEPT</span>
+          <span class="text-[10px] font-normal opacity-80">Izinkan Masuk</span>
+        </button>
+
+        <button onclick="gameL1.handleAction('DROP')" class="min-h-[48px] py-4 rounded-xl bg-rose-600 hover:bg-rose-500 active:scale-95 text-white font-extrabold text-sm md:text-base font-mono shadow-lg shadow-rose-600/20 transition-all flex flex-col items-center justify-center touch-target">
+          <span>🛡️ DROP</span>
+          <span class="text-[10px] font-normal opacity-80">Buang Diam-diam</span>
+        </button>
+
+        <button onclick="gameL1.handleAction('REJECT')" class="min-h-[48px] py-4 rounded-xl bg-amber-600 hover:bg-amber-500 active:scale-95 text-white font-extrabold text-sm md:text-base font-mono shadow-lg shadow-amber-600/20 transition-all flex flex-col items-center justify-center touch-target">
+          <span>🚫 REJECT</span>
+          <span class="text-[10px] font-normal opacity-80">Tolak + Notifikasi</span>
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-slate-800/80 bg-slate-950/80 py-4 text-center text-xs text-slate-500 font-mono mt-auto">
+    <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-2">
+      <div>CyberGuard SIJA &copy; 2026 - Modul Edukasi Sistem Keamanan Jaringan</div>
+      <div class="text-[11px] text-slate-600">SMK Sistem Informatika, Jaringan, dan Aplikasi</div>
+    </div>
+  </footer>
+
+  <!-- SHARED ASSETS -->
+  <script src="js/shared/app-state.js"></script>
+  <script src="js/shared/sound.js"></script>
+  <script src="js/shared/router.js"></script>
+  <script src="js/shared/utils.js"></script>
+
+  <!-- DATA -->
+  <script src="js/data/game-data.js"></script>
+
+  <!-- PAGE JS -->
+  <script src="js/pages/game-l1.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Router.init();
+      const muteBtn = document.getElementById('btn-toggle-audio');
+      if (muteBtn) {
+        muteBtn.addEventListener('click', () => {
+          const isMuted = sounds.toggleMute();
+          muteBtn.innerHTML = isMuted
+            ? `🔇 <span class="hidden sm:inline">Unmute</span>`
+            : `🔊 <span class="hidden sm:inline">Mute</span>`;
+        });
+      }
+      window.gameL1.init();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level 3: Cyber Defense Rush - CyberGuard SIJA</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen cyber-grid-bg flex flex-col">
+
+  <!-- ================= HEADER ================= -->
+  <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="Router.navigate('index.html')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/20 text-white font-black text-xl">
+          🛡️
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="font-extrabold text-base md:text-lg tracking-wider text-slate-100">CYBERGUARD</h1>
+            <span class="text-[10px] font-mono bg-cyan-950 text-cyan-300 border border-cyan-700/60 px-1.5 py-0.5 rounded font-bold">SIJA SMK</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Level 3: Cyber Defense Rush</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-xs text-slate-300 transition-colors flex items-center gap-1.5">
+          🏠 Kembali ke Dashboard
+        </a>
+        <button id="btn-toggle-audio" class="px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-xs text-slate-300 transition-colors flex items-center gap-1.5">
+          🔊 <span class="hidden sm:inline">Mute</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigasi Menu -->
+    <div class="border-t border-slate-800/60 bg-slate-900/60">
+      <div class="max-w-7xl mx-auto px-4 flex items-center space-x-1 overflow-x-auto py-2">
+        <a href="index.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">🏠 Dashboard</a>
+        <a href="materi.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">📖 Materi & Teori</a>
+        <a href="kuis.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">❓ Kuis Pemanasan</a>
+        <a href="simulator.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">🔬 Lab Simulator Paket</a>
+        <a href="game-l1.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">🎮 Level 1: Bouncer</a>
+        <a href="game-l2.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">🛠️ Level 2: Rules</a>
+        <a href="game-l3.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 glow-cyan whitespace-nowrap">⚡ Level 3: Survival</a>
+        <a href="sertifikat.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">📜 Sertifikat Digital</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= KONTEN UTAMA ================= -->
+  <main class="max-w-7xl mx-auto px-4 py-8 flex-1">
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 mb-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="text-xs px-2 py-0.5 rounded font-mono font-bold bg-rose-950 text-rose-400 border border-rose-800">LEVEL 3</span>
+            <h2 class="text-lg font-bold text-slate-100">Cyber Defense Rush (Incident Response)</h2>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">Pertahankan server sekolah dari serangan siber bertubi-tubi secara real-time!</p>
+        </div>
+
+        <!-- Status Bar Waktu & Skor -->
+        <div class="flex items-center space-x-4 bg-slate-950 px-4 py-2 rounded-xl border border-slate-800 font-mono text-xs">
+          <div>
+            <span class="text-slate-500 text-[10px] block">WAKTU:</span>
+            <span id="l3-time" class="text-amber-400 font-bold text-sm">45s</span>
+          </div>
+          <div class="border-l border-slate-800 pl-4">
+            <span class="text-slate-500 text-[10px] block">SKOR:</span>
+            <span id="l3-score" class="text-cyan-400 font-bold text-sm">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bar Kesehatan Server -->
+      <div class="space-y-1">
+        <div class="flex items-center justify-between text-xs font-mono">
+          <span class="text-slate-300 font-bold">KESEHATAN SERVER KAMPUS (SERVER HEALTH):</span>
+          <span id="l3-health" class="text-emerald-400 font-bold">100%</span>
+        </div>
+        <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden border border-slate-800">
+          <div id="l3-health-bar" class="h-3 rounded-full bg-emerald-500 w-full transition-all duration-300"></div>
+        </div>
+      </div>
+
+      <!-- Kontrol Tombol Pertahanan Darurat -->
+      <div class="space-y-2">
+        <span class="text-xs font-mono text-cyan-400 font-bold uppercase">Tindakan Pertahanan Cepat (Klik untuk Mengaktifkan):</span>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          
+          <button id="l3-btn-insecure" onclick="gameL3.toggleDefense('blockInsecure')" class="min-h-[48px] p-3 rounded-lg border text-left text-xs bg-slate-900 border-slate-700 text-slate-400 font-mono transition-all touch-target">
+            <span class="font-bold text-slate-200 block mb-1">🛡️ AUTO-DROP INSECURE</span>
+            <span class="text-[11px] block">Blokir Telnet (23) & FTP (21)</span>
+          </button>
+
+          <button id="l3-btn-ssh" onclick="gameL3.toggleDefense('whitelistSsh')" class="min-h-[48px] p-3 rounded-lg border text-left text-xs bg-slate-900 border-slate-700 text-slate-400 font-mono transition-all touch-target">
+            <span class="font-bold text-slate-200 block mb-1">🔒 SSH WHITELIST ONLY</span>
+            <span class="text-[11px] block">Batasi port SSH (22) hanya untuk IP Guru/Admin</span>
+          </button>
+
+          <button id="l3-btn-ddos" onclick="gameL3.toggleDefense('rateLimitDdos')" class="min-h-[48px] p-3 rounded-lg border text-left text-xs bg-slate-900 border-slate-700 text-slate-400 font-mono transition-all touch-target">
+            <span class="font-bold text-slate-200 block mb-1">⚡ RATE LIMIT ICMP</span>
+            <span class="text-[11px] block">Cegah ping flood & overload DDoS</span>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Live Incident Feed Stream -->
+      <div class="space-y-2 pt-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-slate-400 font-bold">LOG LIVE SERANGAN (REAL-TIME INCIDENT FEED):</span>
+          <span id="l3-live-log" class="text-[11px] font-mono text-cyan-300">Sistem siap</span>
+        </div>
+        <ul id="l3-incident-feed" class="space-y-1.5 h-44 overflow-y-auto bg-black/60 p-3 rounded-xl border border-slate-800">
+          <li class="text-xs font-mono text-slate-500 italic">Menunggu traffic lalu lintas jaringan...</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-slate-800/80 bg-slate-950/80 py-4 text-center text-xs text-slate-500 font-mono mt-auto">
+    <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-2">
+      <div>CyberGuard SIJA &copy; 2026 - Modul Edukasi Sistem Keamanan Jaringan</div>
+      <div class="text-[11px] text-slate-600">SMK Sistem Informatika, Jaringan, dan Aplikasi</div>
+    </div>
+  </footer>
+
+  <!-- SHARED ASSETS -->
+  <script src="js/shared/app-state.js"></script>
+  <script src="js/shared/sound.js"></script>
+  <script src="js/shared/router.js"></script>
+  <script src="js/shared/utils.js"></script>
+
+  <!-- PAGE JS -->
+  <script src="js/pages/game-l3.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Router.init();
+      const muteBtn = document.getElementById('btn-toggle-audio');
+      if (muteBtn) {
+        muteBtn.addEventListener('click', () => {
+          const isMuted = sounds.toggleMute();
+          muteBtn.innerHTML = isMuted
+            ? `🔇 <span class="hidden sm:inline">Unmute</span>`
+            : `🔊 <span class="hidden sm:inline">Mute</span>`;
+        });
+      }
+      window.gameL3.init();
+    });
+  </script>
+</body>
+</html>

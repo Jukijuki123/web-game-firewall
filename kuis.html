@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuis Pemanasan Firewall - CyberGuard SIJA</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen cyber-grid-bg flex flex-col">
+
+  <!-- ================= HEADER ================= -->
+  <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="Router.navigate('index.html')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/20 text-white font-black text-xl">
+          🛡️
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="font-extrabold text-base md:text-lg tracking-wider text-slate-100">CYBERGUARD</h1>
+            <span class="text-[10px] font-mono bg-cyan-950 text-cyan-300 border border-cyan-700/60 px-1.5 py-0.5 rounded font-bold">SIJA SMK</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Evaluasi Mandiri - Kuis Pemanasan</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-xs text-slate-300 transition-colors flex items-center gap-1.5">
+          🏠 Kembali ke Dashboard
+        </a>
+        <button id="btn-toggle-audio" class="px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-xs text-slate-300 transition-colors flex items-center gap-1.5">
+          🔊 <span class="hidden sm:inline">Mute</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigasi Menu -->
+    <div class="border-t border-slate-800/60 bg-slate-900/60">
+      <div class="max-w-7xl mx-auto px-4 flex items-center space-x-1 overflow-x-auto py-2">
+        <a href="index.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">🏠 Dashboard</a>
+        <a href="materi.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">📖 Materi & Teori</a>
+        <a href="kuis.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 glow-cyan whitespace-nowrap">❓ Kuis Pemanasan</a>
+        <a href="simulator.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">🔬 Lab Simulator Paket</a>
+        <a href="game-l1.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">🎮 Level 1: Bouncer</a>
+        <a href="game-l2.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">🛠️ Level 2: Rules</a>
+        <a href="game-l3.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">⚡ Level 3: Survival</a>
+        <a href="sertifikat.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">📜 Sertifikat Digital</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= KONTEN UTAMA ================= -->
+  <main class="max-w-7xl mx-auto px-4 py-8 flex-1">
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-8">
+      <div class="max-w-2xl mb-6">
+        <span class="text-xs font-mono text-cyan-400 font-bold uppercase">Evaluasi Mandiri</span>
+        <h2 class="text-xl md:text-2xl font-bold text-slate-100 mt-1">Kuis Cepat Pemahaman Firewall</h2>
+        <p class="text-xs text-slate-400 mt-1">Pilih jawaban yang paling tepat. Sistem akan langsung memberikan pembahasan edukatif.</p>
+      </div>
+
+      <div id="quiz-questions-container" class="space-y-4">
+        <!-- Rendered by js/pages/kuis.js -->
+      </div>
+
+      <div class="mt-8 pt-4 border-t border-slate-800 text-center">
+        <button onclick="Router.navigate('simulator.html')" class="px-6 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs font-mono transition-all">
+          Lanjut ke Lab Simulator Paket ➔
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-slate-800/80 bg-slate-950/80 py-4 text-center text-xs text-slate-500 font-mono mt-auto">
+    <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-2">
+      <div>CyberGuard SIJA &copy; 2026 - Modul Edukasi Sistem Keamanan Jaringan</div>
+      <div class="text-[11px] text-slate-600">SMK Sistem Informatika, Jaringan, dan Aplikasi</div>
+    </div>
+  </footer>
+
+  <!-- SHARED ASSETS -->
+  <script src="js/shared/app-state.js"></script>
+  <script src="js/shared/sound.js"></script>
+  <script src="js/shared/router.js"></script>
+  <script src="js/shared/utils.js"></script>
+
+  <!-- DATA -->
+  <script src="js/data/firewall-data.js"></script>
+
+  <!-- PAGE JS -->
+  <script src="js/pages/kuis.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Router.init();
+      const muteBtn = document.getElementById('btn-toggle-audio');
+      if (muteBtn) {
+        muteBtn.addEventListener('click', () => {
+          const isMuted = sounds.toggleMute();
+          muteBtn.innerHTML = isMuted
+            ? `🔇 <span class="hidden sm:inline">Unmute</span>`
+            : `🔊 <span class="hidden sm:inline">Mute</span>`;
+        });
+      }
+      window.kuisPage.init();
+    });
+  </script>
+</body>
+</html>

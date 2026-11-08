@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level 2: Rule Architect - CyberGuard SIJA</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen cyber-grid-bg flex flex-col">
+
+  <!-- ================= HEADER ================= -->
+  <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="Router.navigate('index.html')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/20 text-white font-black text-xl">
+          🛡️
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="font-extrabold text-base md:text-lg tracking-wider text-slate-100">CYBERGUARD</h1>
+            <span class="text-[10px] font-mono bg-cyan-950 text-cyan-300 border border-cyan-700/60 px-1.5 py-0.5 rounded font-bold">SIJA SMK</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Level 2: Rule Architect</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-xs text-slate-300 transition-colors flex items-center gap-1.5">
+          🏠 Kembali ke Dashboard
+        </a>
+        <button id="btn-toggle-audio" class="px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-xs text-slate-300 transition-colors flex items-center gap-1.5">
+          🔊 <span class="hidden sm:inline">Mute</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigasi Menu -->
+    <div class="border-t border-slate-800/60 bg-slate-900/60">
+      <div class="max-w-7xl mx-auto px-4 flex items-center space-x-1 overflow-x-auto py-2">
+        <a href="index.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">🏠 Dashboard</a>
+        <a href="materi.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">📖 Materi & Teori</a>
+        <a href="kuis.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">❓ Kuis Pemanasan</a>
+        <a href="simulator.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">🔬 Lab Simulator Paket</a>
+        <a href="game-l1.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">🎮 Level 1: Bouncer</a>
+        <a href="game-l2.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 glow-cyan whitespace-nowrap">🛠️ Level 2: Rules</a>
+        <a href="game-l3.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">⚡ Level 3: Survival</a>
+        <a href="sertifikat.html" class="nav-link px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 whitespace-nowrap">📜 Sertifikat Digital</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= KONTEN UTAMA ================= -->
+  <main class="max-w-7xl mx-auto px-4 py-8 flex-1">
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3 mb-6">
+      <div class="flex items-center space-x-2">
+        <span class="text-xs px-2 py-0.5 rounded font-mono font-bold bg-indigo-950 text-indigo-400 border border-indigo-800">LEVEL 2</span>
+        <h2 class="text-lg font-bold text-slate-100">Rule Architect: Penata Aturan Firewall</h2>
+      </div>
+
+      <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+        <h3 id="l2-scenario-title" class="font-bold text-cyan-300 text-sm font-mono">Memuat Skenario...</h3>
+        <p id="l2-scenario-desc" class="text-xs text-slate-300 leading-relaxed"></p>
+        <div class="text-[11px] font-mono text-slate-400">
+          Target Server: <span id="l2-target-server" class="text-indigo-400 font-bold"></span>
+        </div>
+      </div>
+
+      <!-- Tabel Aturan yang Dapat Diurutkan -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-slate-400 font-bold">SUSUNAN ATURAN (Gunakan ▲/▼ untuk Mengatur Prioritas Eksekusi):</span>
+        </div>
+
+        <div class="overflow-x-auto bg-slate-950 rounded-xl border border-slate-800">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-800 text-[10px] text-slate-400 font-mono uppercase bg-slate-900">
+                <th class="py-2 px-3">No</th>
+                <th class="py-2 px-3">Tindakan</th>
+                <th class="py-2 px-3">Protokol</th>
+                <th class="py-2 px-3">Port</th>
+                <th class="py-2 px-3">Source IP</th>
+                <th class="py-2 px-3">Keterangan</th>
+                <th class="py-2 px-3 text-right">Prioritas</th>
+              </tr>
+            </thead>
+            <tbody id="l2-rules-body">
+              <!-- Rendered by js/pages/game-l2.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tombol Deploy & Test -->
+      <div class="pt-2 text-center">
+        <button id="l2-test-btn" onclick="gameL2.runWaveTest()" class="min-h-[48px] px-8 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-extrabold text-xs md:text-sm font-mono shadow-lg shadow-indigo-500/20 transition-all touch-target">
+          🚀 Deploy & Uji Gelombang Serangan
+        </button>
+      </div>
+
+      <!-- Laporan Hasil Uji Gelombang Paket -->
+      <div id="l2-wave-report" class="hidden p-4 bg-black/60 rounded-xl border border-slate-800 space-y-2">
+        <h4 class="text-xs font-mono font-bold text-cyan-400 uppercase">Hasil Evaluasi Paket:</h4>
+        <ul id="l2-report-list" class="space-y-1.5"></ul>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-slate-800/80 bg-slate-950/80 py-4 text-center text-xs text-slate-500 font-mono mt-auto">
+    <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-2">
+      <div>CyberGuard SIJA &copy; 2026 - Modul Edukasi Sistem Keamanan Jaringan</div>
+      <div class="text-[11px] text-slate-600">SMK Sistem Informatika, Jaringan, dan Aplikasi</div>
+    </div>
+  </footer>
+
+  <!-- SHARED ASSETS -->
+  <script src="js/shared/app-state.js"></script>
+  <script src="js/shared/sound.js"></script>
+  <script src="js/shared/router.js"></script>
+  <script src="js/shared/utils.js"></script>
+
+  <!-- DATA -->
+  <script src="js/data/game-data.js"></script>
+
+  <!-- PAGE JS -->
+  <script src="js/pages/game-l2.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Router.init();
+      const muteBtn = document.getElementById('btn-toggle-audio');
+      if (muteBtn) {
+        muteBtn.addEventListener('click', () => {
+          const isMuted = sounds.toggleMute();
+          muteBtn.innerHTML = isMuted
+            ? `🔇 <span class="hidden sm:inline">Unmute</span>`
+            : `🔊 <span class="hidden sm:inline">Mute</span>`;
+        });
+      }
+      window.gameL2.init();
+    });
+  </script>
+</body>
+</html>
