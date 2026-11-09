@@ -109,28 +109,6 @@
   </footer>
 
   <!-- SHARED ASSETS -->
-  <script src="js/shared/app-state.js"></script>
-  <script src="js/shared/sound.js"></script>
-  <script src="js/shared/router.js"></script>
-  <script src="js/shared/utils.js"></script>
-
-  <!-- PAGE JS -->
-  <script src="js/pages/sertifikat.js"></script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      Router.init();
-      const muteBtn = document.getElementById('btn-toggle-audio');
-      if (muteBtn) {
-        muteBtn.addEventListener('click', () => {
-          const isMuted = sounds.toggleMute();
-          muteBtn.innerHTML = isMuted
-            ? `🔇 <span class="hidden sm:inline">Unmute</span>`
-            : `🔊 <span class="hidden sm:inline">Mute</span>`;
-        });
-      }
-      window.sertifikatPage.init();
-    });
-  </script>
+  <script type="module" src="js/main-sertifikat.js"></script>
 </body>
 </html>

@@ -140,32 +140,6 @@
   </footer>
 
   <!-- SHARED ASSETS -->
-  <script src="js/shared/app-state.js"></script>
-  <script src="js/shared/sound.js"></script>
-  <script src="js/shared/router.js"></script>
-  <script src="js/shared/utils.js"></script>
-
-  <!-- DATA -->
-  <script src="js/data/firewall-data.js"></script>
-
-  <!-- PAGE JS -->
-  <script src="js/pages/materi.js"></script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      Router.init();
-      const muteBtn = document.getElementById('btn-toggle-audio');
-      if (muteBtn) {
-        muteBtn.addEventListener('click', () => {
-          const isMuted = sounds.toggleMute();
-          muteBtn.innerHTML = isMuted
-            ? `🔇 <span class="hidden sm:inline">Unmute</span>`
-            : `🔊 <span class="hidden sm:inline">Mute</span>`;
-        });
-      }
-      // Inisialisasi materi
-      window.materiPage.init();
-    });
-  </script>
+  <script type="module" src="js/main-materi.js"></script>
 </body>
 </html>
