@@ -8,6 +8,7 @@ const htmlFiles = fs.readdirSync('.')
 
 export default defineConfig({
   root: '.',
+  plugins: [],
   build: {
     outDir: 'dist',
     emptyOutDir: true,
