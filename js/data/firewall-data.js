@@ -40,7 +40,7 @@ const FIREWALL_LESSONS = [
         <p>
           Firewall jenis <em>Packet Filtering</em> memeriksa setiap paket seperti kurir memeriksa label pada amplop surat:
         </p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-3">
           <div class="p-3 bg-slate-900 border border-slate-700 rounded-lg">
             <span class="text-xs text-cyan-400 font-mono font-bold block mb-1">HEADER INFORMASI</span>
             <ul class="text-xs space-y-1.5">

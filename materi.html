@@ -67,18 +67,17 @@
       </div>
     </div>
 
-    <!-- Kartu-Kartu Pembelajaran -->
+    <!-- Kartu-Kartu Pembelajaran (2 di atas, 2 di bawah) -->
     <section class="mb-10">
       <div class="flex items-center justify-between mb-6">
         <h3 class="text-lg font-bold text-cyan-300 font-mono flex items-center gap-2">
           <span>📚</span> Modul Pembelajaran
         </h3>
-        <span class="text-xs font-mono text-slate-500">Pilih modul untuk memulai</span>
+        <span class="text-xs font-mono text-slate-500">4 Modul Terstruktur SIJA</span>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        <div id="lessons-container">
-          <!-- Rendered by js/pages/materi.js -->
-        </div>
+      <!-- Grid 2 kolom menyamping (2 di atas, 2 di bawah pada layar md ke atas) -->
+      <div id="lessons-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+        <!-- Card akan dirender di sini oleh materi.js -->
       </div>
     </section>
 

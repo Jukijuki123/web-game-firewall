@@ -10,24 +10,80 @@ const materiPage = {
   },
 
   renderLessons() {
-    const container = document.getElementById('lessons-container');
+    const container = document.getElementById('lessons-grid');
     if (!container) return;
 
     container.innerHTML = '';
+
+    // Warna aksen dan tema per kartu (Indeks 0 & 1 di atas, 2 & 3 di bawah)
+    const themeStyles = [
+      {
+        card: 'border-cyan-800/40 bg-gradient-to-b from-cyan-950/20 via-slate-900/90 to-slate-950/90 hover:border-cyan-500/60',
+        badge: 'bg-cyan-950/80 text-cyan-300 border-cyan-800/80',
+        number: 'bg-cyan-500/20 border-cyan-500/40 text-cyan-400 group-hover:bg-cyan-500 group-hover:text-slate-900',
+      },
+      {
+        card: 'border-emerald-800/40 bg-gradient-to-b from-emerald-950/20 via-slate-900/90 to-slate-950/90 hover:border-emerald-500/60',
+        badge: 'bg-emerald-950/80 text-emerald-300 border-emerald-800/80',
+        number: 'bg-emerald-500/20 border-emerald-500/40 text-emerald-400 group-hover:bg-emerald-500 group-hover:text-slate-900',
+      },
+      {
+        card: 'border-indigo-800/40 bg-gradient-to-b from-indigo-950/20 via-slate-900/90 to-slate-950/90 hover:border-indigo-500/60',
+        badge: 'bg-indigo-950/80 text-indigo-300 border-indigo-800/80',
+        number: 'bg-indigo-500/20 border-indigo-500/40 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-slate-900',
+      },
+      {
+        card: 'border-amber-800/40 bg-gradient-to-b from-amber-950/20 via-slate-900/90 to-slate-950/90 hover:border-amber-500/60',
+        badge: 'bg-amber-950/80 text-amber-300 border-amber-800/80',
+        number: 'bg-amber-500/20 border-amber-500/40 text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-900',
+      },
+    ];
+
+    // Mapping nama ikon ke emoji
+    const iconEmojiMap = {
+      shield: '🛡️',
+      cpu: '🖥️',
+      'toggle-right': '🔘',
+      list: '📋',
+    };
+
     FIREWALL_LESSONS.forEach((lesson, index) => {
       const card = document.createElement('div');
-      card.className = "bg-slate-900/80 border border-slate-800 rounded-xl p-5 hover:border-cyan-500/40 transition-all";
+      const theme = themeStyles[index] || themeStyles[0];
+      const lessonEmoji = iconEmojiMap[lesson.icon] || '📚';
+
+      card.className = `
+        bg-slate-900/90 border rounded-2xl p-6 flex flex-col justify-between
+        transition-all duration-300 shadow-xl relative overflow-hidden group
+        ${theme.card}
+      `;
+
       card.innerHTML = `
-        <div class="flex items-center justify-between mb-3 border-b border-slate-800 pb-3">
-          <h3 class="font-bold text-base text-cyan-300 flex items-center gap-2">
-            <span>🛡️</span> ${lesson.title}
-          </h3>
-          <span class="text-[11px] bg-cyan-950 text-cyan-300 border border-cyan-800 px-2 py-0.5 rounded font-mono">
-            ${lesson.badge}
-          </span>
+        <!-- Header Kartu: Ikon, Badge, dan Nomor -->
+        <div class="flex items-center justify-between gap-3 pb-4 border-b border-slate-800/80 mb-4">
+          <div class="flex items-center gap-2.5">
+            <span class="text-2xl">${lessonEmoji}</span>
+            <span class="text-[11px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded border ${theme.badge}">
+              ${lesson.badge}
+            </span>
+          </div>
+          <div class="w-8 h-8 rounded-full border flex items-center justify-center text-xs font-mono font-bold transition-colors ${theme.number}">
+            #${index + 1}
+          </div>
         </div>
-        <p class="text-xs text-slate-400 mb-4">${lesson.summary}</p>
-        <div class="pt-2 border-t border-slate-800/50">
+
+        <!-- Judul & Ringkasan Materi -->
+        <div class="space-y-2 mb-4">
+          <h3 class="font-bold text-lg md:text-xl text-white leading-snug group-hover:text-cyan-200 transition-colors">
+            ${lesson.title}
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+            ${lesson.summary}
+          </p>
+        </div>
+
+        <!-- Konten Detail Interaktif (Aliran Dokumen Alami, Tidak Ada Teks Tumpang Tindih) -->
+        <div class="pt-4 border-t border-slate-800/60 flex-1">
           ${lesson.content}
         </div>
       `;
